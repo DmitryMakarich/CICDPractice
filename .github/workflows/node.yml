@@ -27,5 +27,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - run: |
+          touch .env
+          echo DB_URL=$DB_URL >> .env
+          echo DB_NAME=$DB_NAME >> .env
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_NAME: ${{ secrets.DB_NAME }}
       - run: npm ci
       - run: npm test
